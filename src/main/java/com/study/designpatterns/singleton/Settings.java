@@ -2,18 +2,16 @@ package com.study.designpatterns.singleton;
 
 public class Settings {
 
-    private static Settings instance;
+    // 스레드 세이프하게 Static inner 클래스를 사용
 
-    // 1. 인스턴스를 오직 한개만 생성
     private Settings(){}
 
-    // 2. 전역적으로 제공
-    // 하지만 멀티스레드 환경에서는 안전하지 않다.
+    private static class SettingsHolder{
+        private static final Settings INSTANCE = new Settings();
+    }
+
     public static Settings getInstance(){
-        if(instance == null){
-            instance = new Settings();
-        }
-        return instance;
+        return SettingsHolder.INSTANCE;
     }
 
 }
